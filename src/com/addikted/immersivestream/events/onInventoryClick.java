@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.Objects;
+
 public class onInventoryClick implements Listener {
 
     @EventHandler
@@ -24,17 +26,9 @@ public class onInventoryClick implements Listener {
         e.setCancelled(true);
         Player player = (Player) e.getWhoClicked();
         if (e.getCurrentItem() == null) { return; }
-        player.sendMessage(e.getCurrentItem().getItemMeta().getLocalizedName());
+        player.sendMessage(Objects.requireNonNull(e.getCurrentItem().getItemMeta()).getLocalizedName());
         if (e.getCurrentItem().getType() == Material.PAPER) {
-            player.closeInventory();
-        }
-    } public void ConnectAccountGUI(InventoryClickEvent e) {
-        e.setCancelled(true);
-        Player player = (Player) e.getWhoClicked();
-        if (e.getCurrentItem() == null) { return; }
-        player.sendMessage(e.getCurrentItem().getItemMeta().getLocalizedName());
-        if (e.getCurrentItem().getType() == Material.PAPER) {
-            player.closeInventory();
+            player.performCommand("connecttwitch");
         }
     }
 

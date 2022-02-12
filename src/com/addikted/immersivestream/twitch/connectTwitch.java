@@ -1,9 +1,16 @@
 package com.addikted.immersivestream.twitch;
 
+
 import com.addikted.immersivestream.GUIs.ConnectAccountGUI;
+import com.addikted.immersivestream.twitch.Connect;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class connectTwitch implements CommandExecutor {
     @Override
@@ -11,13 +18,18 @@ public class connectTwitch implements CommandExecutor {
         Player player = (Player) sender;
         player.sendMessage("test");
         if (!cmd.getName().equalsIgnoreCase("connecttwitch")) { return true; } // halt if the command is not connecttwitch
-        player.openInventory(new ConnectAccountGUI().getInventory());
 
-
-        if (args.length == 0) {
-
+        if (args.length <= 0) {
+            player.sendMessage(ChatColor.AQUA + "Opening menu...");
+            player.openInventory(new ConnectAccountGUI().getInventory());
         } else if (args.length == 1) {
-            // connect to twitch with the given username
+            player.sendMessage("connecting to twitch...");
+            if (Connect.Test(args[0]) == true) {
+                player.sendMessage(ChatColor.GREEN + "Connected to Twitch!");
+            } else {
+                player.sendMessage(ChatColor.RED + "Could not connect to Twitch! account not found!");
+            }
+
         }
 
         return true;

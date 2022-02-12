@@ -7,10 +7,6 @@ import static org.bukkit.Bukkit.getWhitelistedPlayers;
 public class generalHelper {
 
     public static boolean isWhitelisted(OfflinePlayer player) {
-        if  (getWhitelistedPlayers().contains(player)) {
-            return true;
-        } else {
-            return false;
-        }
+        return getWhitelistedPlayers().contains(player);
     }
 }

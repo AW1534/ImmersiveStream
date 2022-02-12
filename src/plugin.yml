@@ -3,6 +3,7 @@ version: 0.1.0
 author: A_W1534
 main: com.addikted.immersivestream.immersiveStream
 api-version: 1.18
+
 commands:
   menu:
     description: Displays a GUI menu for Interactive Stream
@@ -11,4 +12,8 @@ commands:
   connecttwitch:
     description: Connects to a Twitch account
     aliases: [ connectaccount, connecttwitch, connecttwitchaccount ]
-    usage: /<command> <username>
+    usage: /<command> [username]
+  purge:
+    description: Tries to get rid of any idle players with a minigame
+    aliases: [ prune]
+    usage: /<command> [min] [max]

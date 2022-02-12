@@ -27,12 +27,11 @@ public class storageHelper {
     }
 
     public static void save(Player player, Key key, String value) throws IOException {
-        File folder = new File(plugin.getDataFolder()+File.separator+"players");
-        // FileConfiguration data = YamlConfiguration.loadConfiguration(File.join(folder, player.getName()+".yml"));
+
+
+        File folder = new File("" + plugin.getDataFolder());
         if(!folder.exists()) { folder.mkdirs(); }
 
-        File playerFile = new File(plugin.getDataFolder()+File.separator+"players"+File.separator+player.getName()+".yml");
-        if(!playerFile.exists()) playerFile.createNewFile();
 
 
     }
