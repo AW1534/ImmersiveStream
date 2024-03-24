@@ -1,5 +1,5 @@
-name: immersivestream
-version: 0.1.0
+name: ${project.artifactId}
+version: ${project.version}
 author: A_W1534
 main: com.addikted.immersivestream.immersiveStream
 api-version: 1.18

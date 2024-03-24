@@ -1,5 +1,6 @@
 package com.addikted.immersivestream.events;
 
+import com.addikted.immersivestream.StorageHelper;
 import com.addikted.immersivestream.generalHelper;
 import com.addikted.immersivestream.immersiveStream;
 import org.bukkit.Bukkit;
@@ -19,6 +20,12 @@ import java.util.Locale;
 import static org.bukkit.Bukkit.*;
 
 public class onWhitelist implements Listener {
+
+    public void removeFromWhitelist() {
+
+    }
+
+
     @EventHandler
     public void onWhiteList(PlayerCommandPreprocessEvent e) throws InterruptedException {
         String message = e.getMessage().toLowerCase(Locale.ROOT);
@@ -33,17 +40,18 @@ public class onWhitelist implements Listener {
                     target.setGameMode(getDefaultGameMode());
                 }
             } else { // otherwise, execute the code normally
+                StorageHelper.savePlayerPosition(target);
                 target.setGameMode(GameMode.SPECTATOR);
                 target.playSound(target.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1, 1);
                 target.sendMessage(ChatColor.BOLD + "" + ChatColor.YELLOW + "You have been removed from the whitelist.");
                 Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(JavaPlugin.getPlugin(immersiveStream.class), new Runnable() {
                     public void run() {
-                        if (!generalHelper.isWhitelisted(target)) {
+                        if (generalHelper.isWhitelisted(target)) {
                             target.setGameMode(getDefaultGameMode());
                             target.sendMessage(ChatColor.BOLD + "" + ChatColor.YELLOW + "(!) Due to an issue with a security feature, you were just temporarily set to spectator. if this persists, please contact the plugin developer to resolve this issue.");
                         }
                     }
-                }, (50));
+                }, (2));
 
             }
 
@@ -52,7 +60,9 @@ public class onWhitelist implements Listener {
         if (message.contains("/whitelist add") && e.getPlayer().isOp()) {
             Player target = getPlayer(message.split(" ", -1)[2]);
             target.playSound(target.getLocation(), Sound.ENTITY_VILLAGER_CELEBRATE, 1, 1);
-            target.sendMessage(ChatColor.GREEN + "(!) You have been Added to the whitelist! rejoin to participate in the server.");
+            target.sendMessage(ChatColor.GREEN + "(!) You have been Added to the whitelist!");
+            StorageHelper.backToLastLocation(target);
+            target.setGameMode(getDefaultGameMode());
         }
         // if the whitelist is reloaded, all players who are not whitelisted will be set to spectator
         if (message.contains("/whitelist reload") && e.getPlayer().isOp()) {
@@ -62,7 +72,7 @@ public class onWhitelist implements Listener {
                     if (player.getGameMode() != GameMode.SPECTATOR) {
                         player.setGameMode(GameMode.SPECTATOR);
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1, 1);
-                        player.sendMessage(ChatColor.GREEN + "(!) Due to an issue with a manual whitelist reload, Immersive Stream has detected that you are not whitelisted, and you have been set to spectator. if this is not the case, please contact the plugin developer to resolve this issue.");
+                        player.sendMessage(ChatColor.GREEN + "(!) Due to a manual whitelist reload, Immersive Stream has detected that you are not whitelisted, and you have been set to spectator. if this is not the case, please contact the plugin developer to resolve this issue.");
                     }
                 }
             });

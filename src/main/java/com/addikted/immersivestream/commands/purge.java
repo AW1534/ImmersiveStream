@@ -2,7 +2,7 @@ package com.addikted.immersivestream.commands;
 
 import com.addikted.immersivestream.GUIs.menuGUI;
 import com.addikted.immersivestream.immersiveStream;
-import com.sun.deploy.util.ArrayUtil;
+//import com.sun.deploy.util.ArrayUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -61,7 +61,7 @@ public class purge implements CommandExecutor {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(JavaPlugin.getPlugin(immersiveStream.class), new Runnable() {
             public void run() {
                 // list of letter words
-                List<String> words = Arrays.asList("Hi", "Immersive Stream", "Rap God", "2 + 2 = 5", "This is a purge", "bye yall", "dont kick me pls");
+                List<String> words = Arrays.asList("Hi", "Immersive Stream", "Rap God", "2 + 2 = 5", "This is a purge", "dont kick me pls");
                 String randomElement = words.get(random.nextInt(words.size()));
                 purgeWord = randomElement.toLowerCase();
 

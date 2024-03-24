@@ -1,6 +1,5 @@
 package com.addikted.immersivestream.events;
 
-import com.addikted.immersivestream.GUIs.ConnectAccountGUI;
 import com.addikted.immersivestream.GUIs.menuGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,11 +13,10 @@ public class onInventoryClick implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        System.out.println("invclick");
         if (e.getClickedInventory() == null) { return; }
         if (e.getClickedInventory().getHolder() instanceof menuGUI) {
             menuGUI(e);
-        } else if (e.getClickedInventory().getHolder() instanceof ConnectAccountGUI) {
-
         }
     }
 
